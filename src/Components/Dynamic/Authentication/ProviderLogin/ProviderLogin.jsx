@@ -1,11 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../../assets/Logo.png";
-import axios from "../../../../Axios/Axios";
 import { useContext, useState } from "react";
+import axios from "../../../../Axios/Axios";
 import { AuthContext } from "../../../../contexts/AuthContexts/UserContext";
 
-const Login = () => {
+const ProviderLogin = () => {
   const [data, setData] = useState({});
   const navigate = useNavigate();
   const { setLoggedUser } = useContext(AuthContext);
@@ -23,12 +23,12 @@ const Login = () => {
   const signIn = async (e) => {
     e.preventDefault();
     try {
-      const result = await axios.post("/user/userLogin", data);
+      const result = await axios.post("/provider/providerLogin", data);
       const token = result.data.token;
       localStorage.setItem("jwt-token", token);
       setLoggedUser({ user: result.data.data, token: token });
       alert("Login successful");
-      navigate("/");
+      navigate("/provider-dashboard");
     } catch (err) {
       console.log(err);
       alert("Incorrect email or password.");
@@ -38,14 +38,14 @@ const Login = () => {
   return (
     <form
       onSubmit={signIn}
-      className="login w-1/5 mx-auto flex flex-col border border-gray-200 p-5 rounded shadow mt-60"
+      className="provider-login w-1/5 mx-auto flex flex-col border border-gray-200 p-5 rounded shadow mt-60"
     >
       <img src={logo} alt="Logo" className="w-1/2 mx-auto" />
       <p className="my-2">Email Address:</p>
       <input
         onChange={handleInput}
         className="border border-gray-400 rounded px-2 py-1"
-        type="text"
+        type="email"
         name="email"
         placeholder="email address"
       />
@@ -57,7 +57,7 @@ const Login = () => {
         name="password"
         placeholder="password"
       />
-      <Link to="/register" className="link text-center mt-2">
+      <Link to="/provider-registration" className="link text-center mt-2">
         Don't have an account?
       </Link>
       <div className="flex justify-center my-5">
@@ -72,4 +72,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ProviderLogin;
