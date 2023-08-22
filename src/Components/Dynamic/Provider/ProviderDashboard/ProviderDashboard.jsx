@@ -4,7 +4,9 @@ import { AuthContext } from "../../../../contexts/AuthContexts/UserContext";
 
 const ProviderDashboard = () => {
   const { loggedUser } = useContext(AuthContext);
+
   const [services, setServices] = useState([]);
+
   const searchesByCategory = loggedUser?.user?.categoryRole;
 
   const searchingForProviders = async (category) => {
@@ -47,7 +49,7 @@ const ProviderDashboard = () => {
   let i = 0;
 
   return (
-    <div className="provider-dashboard">
+    <div className="provider-dashboard h-screen">
       <h1 className="text-3xl font-bold text-center mt-5 mb-10">
         Pending Services
       </h1>
